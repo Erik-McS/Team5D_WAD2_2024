@@ -10,9 +10,55 @@
 {% endblock %}
 
 {% block body_block %}
-    <div class="pTextBlue">
-    <p>{{ message }}</p>
+
+<h1>{{ top_message }}</h1>
+
+<div style="display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center; align-items: center;">
+{% if restaurants %}
+  {% for restaurant in restaurants %}
+      {#  Single Card Template:#}
+      <div class="card" style="width: 18rem; margin: 10px">
+        <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/26/af/26/f1/selection-of-food.jpg?w=600&h=400&s=1" class="card-img-top" >
+        <div class="card-body">
+          <div style="display: flex; flex-direction: row">
+            <h5 class="card-title">{{ restaurant.name }}</h5>
+          </div>
+          <img src="https://t3.ftcdn.net/jpg/06/78/48/94/360_F_678489461_3A71gTirz0O4paWtpKPYhXfNyz74Ut62.jpg" class="star">
+          <p class="card-text">{{ restaurant.address }}</p>
+          <a href="/command/1/color" class="btn btn-primary">See More</a>
+          <a href="/command/1/delete" class="btn btn-primary">Review</a>
+        </div>
     </div>
+  {% endfor %}
+{% else %}
+  <p>No restaurants are available.</p>
+{% endif %}
+</div>
+
+<h1>{{ fave_message }}</h1>
+
+<div style="display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center; align-items: center;">
+  {% if restaurants %}
+    {% for restaurant in fave_restaurants %}
+        {#  Single Card Template:#}
+        <div class="card" style="width: 18rem; margin: 10px">
+          <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/26/af/26/f1/selection-of-food.jpg?w=600&h=400&s=1" class="card-img-top" >
+          <div class="card-body">
+            <div style="display: flex; flex-direction: row">
+              <h5 class="card-title">{{ restaurant.name }}</h5>
+            </div>
+            <img src="https://t3.ftcdn.net/jpg/06/78/48/94/360_F_678489461_3A71gTirz0O4paWtpKPYhXfNyz74Ut62.jpg" class="star">
+            <p class="card-text">{{ restaurant.address }}</p>
+            <a href="/command/1/color" class="btn btn-primary">See More</a>
+            <a href="/command/1/delete" class="btn btn-primary">Review</a>
+          </div>
+      </div>
+    {% endfor %}
+  {% else %}
+    <p>No restaurants are available.</p>
+  {% endif %}
+  </div>
+        
 {% endblock %}
 
 {% block block_footer %}
