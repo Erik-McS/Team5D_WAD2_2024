@@ -1,2 +1,5 @@
 .idea
 db.sqlite3
+ratearant/__pycache__
+ratearant/migrations
+team5d/__pycache__
