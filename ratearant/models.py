@@ -3,6 +3,9 @@ from django.db import models
 #user login and logout
 from django.contrib.auth.models import User
 
+#python manage.py makemigrations
+#python manage.py migrate
+
 # Create your models here.
 
 # Table for the cuisine type.

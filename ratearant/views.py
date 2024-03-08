@@ -54,9 +54,11 @@ def register(request):
         user_form = UserForm(request.POST)
 
         if user_form.is_valid():
-            user = user_form.save()
-
-            user.set_password(user.password)
+            user = user_form.save(commit=False)
+            user.set_password (user_form.cleaned_data['password'])
+            user.email = user_form.cleaned_data['email']
+            user.first_name  = user_form.cleaned_data['first_name']
+            user.last_name  = user_form.cleaned_data['last_name']
             user.save()
             registered = True
         else:
@@ -68,12 +70,3 @@ def register(request):
                   'ratearant/register.html', 
                   context = {'user_form': user_form, 
                              'registered': registered})
-
-#User delete
-"""
-@login_required
-def delete_account(request):
-    user = get_user_model().objects.get(username=request.user.username)
-    user.delete()
-    return redirect('ratearant:home')
-"""

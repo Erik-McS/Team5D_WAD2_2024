@@ -15,12 +15,35 @@
             <form id="user_form" method="post" action="{% url 'ratearant:register' %}" enctype="multipart/form-data">
                 {% csrf_token %}
                 
-                {{ user_form.username.label_tag }}{{ user_form.username }}<br /><br />
-                {{ user_form.first_name.label_tag }}{{ user_form.first_name }}<br /><br />
-                {{ user_form.last_name.label_tag }}{{ user_form.last_name }}<br /><br />
-                {{ user_form.email.label_tag }}{{ user_form.email }}<br /><br />
-                {{ user_form.password.label_tag }}{{ user_form.password }}<br /><br />
-                {{ profile_form.as_p }}
+                <div style="text-align: left;"> 
+                    {{ user_form.username.label_tag }}{{ user_form.username }}
+                    {% if user_form.username.errors %}
+                        <div class="error">{{ user_form.username.errors }}</div>
+                    {% endif %}
+                    <br /><br />
+
+                    {{ user_form.password.label_tag }}{{ user_form.password }}
+                    {% for error in user_form.password.errors %}
+                        <div class="error">{{ error }}</div>
+                    {% endfor %}
+                    <br /><br />
+
+                    {{ user_form.email.label_tag }}{{ user_form.email }}
+                    {% for error in user_form.email.errors %}
+                        <div class="error">{{ error }}</div>
+                    {% endfor %}
+                    <br /><br />
+
+                    {{ user_form.first_name.label_tag }}{{ user_form.first_name }}<br /><br />
+                    {{ user_form.last_name.label_tag }}{{ user_form.last_name }}<br /><br />
+
+                    {{ profile_form.as_p }}
+                    {% for field in profile_form %}
+                        {% for error in field.errors %}
+                            <div class="error">{{ error }}</div>
+                        {% endfor %}
+                    {% endfor %}
+                </div>
 
                 <input type="submit" name="submit" value="Register" />
             </form>
