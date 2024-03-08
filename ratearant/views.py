@@ -9,6 +9,8 @@ from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from django.http import HttpResponse
 from ratearant.forms import UserForm
+from django.contrib.auth.models import User
+from .forms import UserForm
 
 # Create your views here.
 
@@ -54,9 +56,11 @@ def register(request):
         user_form = UserForm(request.POST)
 
         if user_form.is_valid():
-            user = user_form.save()
-
-            user.set_password(user.password)
+            user = user_form.save(commit=False)
+            user.password(user_form.cleaned_data['password'])
+            user.email = user_form.cleaned_data['email']
+            user.firstName = user_form.cleaned_data['firstName']
+            user.lastName = user_form.cleaned_data['lastName']
             user.save()
             registered = True
         else:
@@ -68,12 +72,3 @@ def register(request):
                   'ratearant/register.html', 
                   context = {'user_form': user_form, 
                              'registered': registered})
-
-#User delete
-"""
-@login_required
-def delete_account(request):
-    user = get_user_model().objects.get(username=request.user.username)
-    user.delete()
-    return redirect('ratearant:home')
-"""
