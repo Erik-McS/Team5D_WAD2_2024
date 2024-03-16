@@ -22,8 +22,8 @@ h1 {
 }
 
 .btnRed {
-    background-color: #95090d;
-    color: white;
+    background-color: #95090d !important;
+    color: white !important;
     width: 100px;
 }
 
