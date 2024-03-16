@@ -25,4 +25,5 @@ team5d/__pycache__/settings.cpython-39.pyc
 team5d/__pycache__/urls.cpython-39.pyc
 team5d/__pycache__/wsgi.cpython-39.pyc
 .idea/Team5D_WAD2_2024.iml
-
+ratearant/__pycache__/views.cpython-311.pyc
+ratearant/__pycache__/models.cpython-311.pyc
