@@ -1,4 +1,4 @@
-// function in JSQuery
+// function in JSQuery to randomise some pics
 $(document).ready(function (){
     // store the path to the image
     var pathToImage = staticUrl + "rateArant_";
