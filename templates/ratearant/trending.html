@@ -4,79 +4,77 @@
 {% block block_title %} Trending Page {% endblock %}
 
 {% block body_block %}
-    <div class="top-rated-restaurants">
-        <h2 class="text-center mb-4">Our Top Rated Restaurants</h2>
-    
-        <div class="row row-cols-1 row-cols-md-3 row-cols-lg-5 g-4">
-            <div class="col">
-                <div class="card">
-                    <img src="{% static 'ratearant/images/rice.jpg' %}" class="card-img-top" alt="place holder here" />
-                </div>
-            </div>
-            <div class="col">
-                <div class="card">
-                    <img src="{% static 'ratearant/images/rice.jpg' %}" class="card-img-top" alt="place holder here" />
-                </div>
-            </div>
 
-            <div class="col">
-                <div class="card">
-                    <img src="{% static 'ratearant/images/rice.jpg' %}" class="card-img-top" alt="place holder here" />
-                </div>
-            </div>
+<link rel="stylesheet" href="{% static 'ratearant/CSS/styles.css' %}">
 
-            <div class="col">
-                <div class="card">
-                    <img src="{% static 'ratearant/images/rice.jpg' %}" class="card-img-top" alt="place holder here" />
-                </div>
-            </div>
+<h1>{{ top_message }}</h1>
 
-            <div class="col">
-                <div class="card">
-                    <img src="{% static 'ratearant/images/rice.jpg' %}" class="card-img-top" alt="place holder here" />
-                </div>
-            </div>
+<div style="display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center; align-items: center;">
+{% if restaurants %}
+  {% for restaurant in restaurants %}
+      {#  Single Card Template:#}
+      <div class="card" style="width: 18rem; margin: 10px">
+        <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/26/af/26/f1/selection-of-food.jpg?w=600&h=400&s=1" class="card-img-top" >
+        <img src="https://en.wikipedia.org/wiki/French_cuisine#/media/File:Cuisine_Trois_%C3%A9toiles.jpg" class="card-img-top" >
+        <div class="card-body">
+          <div style="display: flex; flex-direction: row">
+            <h5 class="card-title">{{ restaurant.name }}</h5>
+          </div>
+          <div class="star-rating">
+            {% for i in range %}
+              {% if i <= restaurant.average_rating %}
+                <span >&#11088;</span>
+              {% else %}
+                <span class="empty-star">&#9734;</span>
+              {% endif %}
+            {% endfor %}
+            <p>Average Rating: {{ restaurant.average_rating }} ({{ restaurant.number_of_reviews }} reviews)</p>
+          </div>
+          <p class="card-text">{{ restaurant.address }}</p>
+          <a href="/ratearant/restaurant/{{ restaurant.slug }}/" class="btn btnRed">See More</a>
+          {% if user.is_authenticated %}
+          <a href="{% url 'ratearant:add_review' restaurant_name_slug=restaurant.slug %}">Add Review</a>
+          {% endif %}
         </div>
-            {% for restaurant in top_rated_restaurants %}
-        <div class="col">
-            <div class="card">
-                <img src="static/ratearant/images/pancakes.jpg" class="card-img-top">
-                <div class="card-body">
-                    <h5 class="card-title">{{ restaurant.name }}</h5>
-                    <div class="rating">
-                        {% for _ in restaurant.rating_range %}
-                        <span class="fa fa-star"></span>
-                        {% endfor %}
-                    </div>
-                    <p class="card-text">{{ restaurant.location }}</p>
-                    <a href="{% url 'ratearant:restaurant_detail' restaurant.id %}" class="btn btn-primary">See More</a>
-                </div>
-            </div>
-        </div>
-        {% endfor %}
     </div>
+  {% endfor %}
+{% else %}
+  <p>No restaurants are available.</p>
+{% endif %}
 </div>
 
-<div class="top-rated-restaurants">
-    <h2 class="text-center mb-4">Your Top Rated Restaurants</h2>
-<div class="row row-cols-1 row-cols-md-3 row-cols-lg-5 g-4">
-    {% for restaurant in top_rated_restaurants %}
-    <div class="col">
-        <div class="card">
-            <img src="https://www.restaurant-in-pattaya.com/mv/media/Goose-Liver-834x487.jpg" class="card-img-top" alt="{{ pizza.name }}">
-            <div class="card-body">
-                <h5 class="card-title">{{ restaurant.name }}</h5>
-                <div class="rating">
-                    {% for _ in restaurant.rating_range %}
-                    <span class="fa fa-star"></span>
-                    {% endfor %}
-                </div>
-                <p class="card-text">{{ restaurant.location }}</p>
-                <a href="{% url 'ratearant:restaurant_detail' restaurant.id %}" class="btn btn-primary">See More</a>
+{% if user.is_authenticated %}
+<h1>{{ fave_message }}</h1>
+
+<div style="display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center; align-items: center;">
+  {% if restaurants %}
+    {% for restaurant in fave_restaurants %}
+        {#  Single Card Template:#}
+        <div class="card" style="width: 18rem; margin: 10px">
+          <img src="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/26/af/26/f1/selection-of-food.jpg?w=600&h=400&s=1" class="card-img-top" >
+          <div class="card-body">
+            <div style="display: flex; flex-direction: row">
+              <h5 class="card-title">{{ restaurant.name }}</h5>
             </div>
-        </div>
-    </div>
+            <div class="star-rating">
+              {% for i in range %}
+                {% if i <= restaurant.average_rating %}
+                  <span >&#11088;</span>
+                {% else %}
+                  <span class="empty-star">&#9734;</span>
+                {% endif %}
+              {% endfor %}
+              <p>Average Rating: {{ restaurant.average_rating }} ({{ restaurant.number_of_reviews }} reviews)</p>
+            </div>
+            <p class="card-text">{{ restaurant.address }}</p>
+            <a href="/command/1/color" class="btn btnRed">See More</a>
+            <a href="{% url 'ratearant:add_review' restaurant_name_slug=restaurant.slug %}" class="btn btnRed">Add Review</a>
+          </div>
+      </div>
     {% endfor %}
-</div>
-</div>
+  {% else %}
+    <p>No restaurants are available.</p>
+  {% endif %}
+  </div>
+{% endif %}
 {% endblock %}

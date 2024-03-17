@@ -133,8 +133,69 @@ def populate():
         }
     ]
 
+    top_rated_restaurants=[
+        {
+            'name': 'El Mariachi Mexican Cantina',
+            'address': '90 Duke Street, Bristol',
+            'phone': '0117 890 1234',
+            'website': 'https://www.elmariachimexican.co.uk',
+            'openingTime': '12:00 - 21:00',
+            'priceRange': '££',
+            'cuisine': 'Mexican',
+            'number_of_reviews': 99,
+            'average_rating': 1
+        },
+        {
+            'name': 'Piazza Italia',
+            'address': '12 High Street, London',
+            'phone': '020 1234 5678',
+            'website': 'https://www.piazzaitalia.co.uk',
+            'openingTime': '12:00 - 23:00',
+            'priceRange': '£££',
+            'cuisine': 'Italian',
+            'number_of_reviews': 53,
+            'average_rating': 4.65
+        },
+        {
+            'name': 'Celinos',
+            'address': '235 Dumbarton Rd, Partick, Glasgow',
+            'phone': '0141 341 0311',
+            'website': 'http://www.celinos.com/',
+            'openingTime': '12:00 - 23:00',
+            'priceRange': '££',
+            'cuisine': 'Italian',
+            'number_of_reviews': 74,
+            'average_rating': 4.5
+        },
+           {
+            'name': 'Fancy Thai',
+            'address': '84 Brick Ln, London E1 6RL',
+            'phone': '020 7646 3799',
+            'website': 'https://www.facebook.com/Fancythai8/',
+            'openingTime': '11:00-00:00',
+            'priceRange': '££',
+            'cuisine': 'Thai',
+            'number_of_reviews': 84,
+            'average_rating': 4.2
+        },
+        {
+            'name': 'som saa',
+            'address': '43A Commercial St, London',
+            'phone': ' 020 7324 7790',
+            'website': 'http://www.somsaa.com/',
+            'openingTime': '12:00-22:00',
+            'priceRange': '££',
+            'cuisine': 'Thai',
+            'number_of_reviews': 194,
+            'average_rating': 4.5
+        },
+
+
+    ]
+
     add_cuisine(cuisine_types)
     add_restaurant(restaurants)
+    add_top_rated_restaurant(top_rated_restaurants)
 
 
 def add_cuisine(cuisine_type):
@@ -161,6 +222,26 @@ def add_restaurant(restaurants):
         )
 
         print(r.name)
+
+def add_top_rated_restaurant(top_rated_restaurants):
+    for restaurant in top_rated_restaurants:
+        cuisine_type = restaurant['cuisine']
+        cuisine, created = Cuisine.objects.get_or_create(cuisineName=cuisine_type)
+        # Create or get the restaurant object
+        r, created = Restaurant.objects.get_or_create(
+            name=restaurant['name'],
+            address=restaurant['address'],
+            phone=restaurant['phone'],
+            website=restaurant['website'],
+            openingTime=restaurant['openingTime'],
+            priceRange=restaurant['priceRange'],
+            defaults={'cuisine': cuisine},
+            number_of_reviews=restaurant['number_of_reviews'],
+            average_rating=restaurant['average_rating']
+        )
+
+        print(r.name)
+
 
 
 if __name__ == '__main__':

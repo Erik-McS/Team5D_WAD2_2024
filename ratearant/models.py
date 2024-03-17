@@ -26,6 +26,7 @@ class Restaurant(models.Model):
     openingTime = models.CharField(max_length=30)
     priceRange = models.CharField(max_length=16)
     cuisine = models.ForeignKey(Cuisine, on_delete=models.CASCADE)
+    #your_top_rated_restaurants for user
     # imgpath=models.CharField(max_length=256)
     slug = models.SlugField(unique=True)
 
@@ -124,3 +125,5 @@ class YourTopRatedRestaurant(models.Model):
 
     def __str__(self):
         return self.name
+
+
