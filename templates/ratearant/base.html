@@ -39,6 +39,7 @@
 
         <div class="text-end">
             {% if user.is_authenticated %}
+                <button type="button" onclick="location.href='{% url 'ratearant:add_restaurant' %}';" class="btn btn-light me-2">Add Restaurant</button>
                 <button type="button" onclick="location.href='{% url 'ratearant:logout' %}';" class="btn btn-light me-2">Logout</button>
                 <button type="button" onclick="location.href='{% url 'ratearant:my_comments' %}';" class="btn btn-light me-2">Comments</button>
                 <button type="button" onclick="location.href='{% url 'ratearant:edit_profile' %}';" class="btn btn-light me-2">Edit profile</button>

@@ -1,0 +1,19 @@
+{% extends "ratearant/base.html" %}
+{% load static %}
+
+{% block block_title %}Add Restaurant{% endblock %}
+
+{% block body_block %}
+<link rel="stylesheet" href="{% static 'ratearant/CSS/styles.css' %}">
+<div class="container">
+    <div class="text-center">
+        <h2>Add a new Restaurant</h2>
+        <div class="vertical-gap"></div>
+        <form method="post" class="form-container">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btnRed">Submit</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
